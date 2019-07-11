@@ -1,2 +1,2 @@
-let a :string = 'hello';
-console.log(a);
+import App from './assets/ts/app';
+new App();

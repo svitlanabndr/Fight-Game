@@ -1,0 +1,156 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+label, label.name, .input {
+    text-transform: uppercase;
+    color: black;
+    font-size: 30px;
+    width: 50%;
+    margin-top: 0; 
+}
+
+#root, #game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.fighters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    flex-wrap: wrap;
+    padding: 0 15px;
+}
+
+.fighter {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.fighter:hover {
+    box-shadow: 0 0 50px 10px rgba(0,0,0,0.06);
+    cursor: pointer;
+}
+
+.name {
+    align-self: center;
+    font-size: 21px;
+    margin-top: 20px;
+}
+
+.fighter-image {
+    height: 260px;
+}
+
+#loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.non-edit {
+    display: none;
+}
+
+.unavailable {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+div#root button, .message {
+    margin-bottom: 2rem;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.mirror {
+    -moz-transform: scale(-1,1);
+    -o-transform: scale(-1,1);
+    -webkit-transform: scale(-1,1);
+    transform:scale(-1,1)
+}
+
+.outerIndicator {
+    height: 20px;
+    width: 100%;
+    border: solid 2px black;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.indicator {
+    padding: 2px;
+    height: 80%;
+    width: 99%;
+    background-color: lime;
+    border-radius: 10px;
+}
+
+#game .fighter:last-of-type .indicator{
+    float: right;
+}
+
+#game .fighters {
+    width: 70%;
+}
+
+#game .fighter-image {
+    height: 400px;
+}
+
+#game .fighter {
+    width: 40%;
+}
+
+#game .fighter:first-of-type {
+    align-items: flex-start;
+}
+
+#game .fighter:last-of-type {
+    align-items: flex-end;
+}
+
+.percentage {
+    position: absolute;
+    color: black;
+    margin-left: 180px;
+}
+
+.message {
+    background-color: lightslategray;
+    font-size: 2em;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.input {
+    color: darkslategrey;
+    font-weight: bold;
+    border: none;
+    margin-left: 10px;
+}
+
+.check {
+    margin: 20px auto;
+}
