@@ -1,31 +1,27 @@
-import View, {IView} from './view';
-import RootFighterView from './rootFighterView';
+import View from './view';
+import RootFighterView, {IRootFighterView} from './rootFighterView';
 import { fightersDataSource } from '../sources/fighterDataSource';
 import DetailView from './detailView';
 import App from '../app'
 
-interface IFightersView extends IView {
-
-}
-
-export default class FightersView extends View implements IFightersView{
+export default class FightersView extends View {
     constructor(fighters: Array< { [key: string]: string }>) {
         super();
-        this.handleClick = this.handleFighterClick.bind(this);
-        this.createFighters(fighters);
+        this.handleClick = this._handleFighterClick.bind(this);
+        this._createFighters(fighters);
     }
-    handleClick: (event: MouseEvent, fighter: { [key: string]: string }) => void;
+    readonly handleClick: (event: MouseEvent, fighter: { [key: string]: string }) => void;
 
-    createFighters(fighters:Array< { [key: string]: string }>) {
+    private _createFighters(fighters:Array< { [key: string]: string }>) {
         const fighterElements = fighters.map(fighter => {
-            const fighterView = new RootFighterView(fighter, this.handleClick);
+            const fighterView: IRootFighterView = new RootFighterView(fighter, this.handleClick);
             return fighterView.element;
         });
         this.element = this.createElement('div', 'fighters');
         this.element.append(...fighterElements);
     }
   
-    async handleFighterClick(event: MouseEvent, fighter: { [key: string]: string }) {
+    private async _handleFighterClick(event: MouseEvent, fighter: { [key: string]: string }) {
         try {
             let detailedFighter = await fightersDataSource.getFighterById(fighter._id);
             const previousModals = document.querySelectorAll('div.tingle-modal');

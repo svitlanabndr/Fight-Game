@@ -10,7 +10,7 @@ class FightersDataSource implements IFightersDataSource{
         [key: string]: string
     }> = new Map();
 
-    async getFighterById(id: string) {
+    public async getFighterById(id: string) {
         let detailedFighter: {
             [key: string]: string
         };

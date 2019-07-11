@@ -1,10 +1,10 @@
 import View, { IView } from './view';
 
 export interface IFighterView extends IView {
-    createFighter: (fighter: { [key: string]: string }, handleClick: (event: MouseEvent, fighter: { [key: string]: string }) => void) => void;
+    nameElement: HTMLSpanElement;
+    imageElement: HTMLElement;
 }
 
-// let fighterView: IFighterView = new FighterView()
 export default class FighterView extends View implements IFighterView {
     constructor(fighter: { [key: string]: string }, handleClick: (event: MouseEvent, fighter: { [key: string]: string }) => void) {
         super();
@@ -13,7 +13,7 @@ export default class FighterView extends View implements IFighterView {
     nameElement: HTMLSpanElement;
     imageElement: HTMLElement;
 
-    public createFighter(fighter: { [key: string]: string },  handleClick: (event: MouseEvent, fighter: { [key: string]: string }) => void) {
+    protected createFighter(fighter: { [key: string]: string },  handleClick: (event: MouseEvent, fighter: { [key: string]: string }) => void) {
         const { name, source } = fighter;
         this.nameElement = this._createName(name);
         this.imageElement = this._createImage(source);

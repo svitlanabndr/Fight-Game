@@ -1,31 +1,36 @@
 import Fighter, { IFighter } from '../fighter';
-import GameFighterView, { IGameFighterView } from './gameFighterView';
+import GameFighterView from './gameFighterView';
 import Modal from './modalView'
-import View from './view';
+import View, { IView } from './view';
 import { fightersDataSource } from '../sources/fighterDataSource'
 import { modal } from 'tingle.js';
+
+interface IGameView extends IView {
+    readonly gameEl: HTMLElement;
+    readonly modal: modal;
+}
  
-export default class GameView extends View {
+export default class GameView extends View implements IGameView {
     constructor(first: string, second: string, gameEl: HTMLElement) {
         super();
         this.gameEl = gameEl;
-        this.setupView(first, second);
+        this._setupView(first, second);
         this.modal = Modal.createModal([]);
     }
-    gameEl: HTMLElement;
-    modal: modal;
+    readonly gameEl: HTMLElement;
+    readonly modal: modal;
 
-    async setupView(id1: string, id2: string) {
+    private async _setupView(id1: string, id2: string) {
         this.gameEl.classList.remove('hidden');
 
         const fighterObj1 = await fightersDataSource.getFighterById(id1);   
         const fighterObj2 = await fightersDataSource.getFighterById(id2);
 
-        const fighter1 = new Fighter(fighterObj1);
-        const fighter2 = new Fighter(fighterObj2);
+        const fighter1: IFighter = new Fighter(fighterObj1);
+        const fighter2: IFighter = new Fighter(fighterObj2);
 
-        const fighterView1: HTMLElement = new GameFighterView(fighterObj1, () => this.handleFighterClick(fighter2, fighter1, fighterView1)).element;
-        const fighterView2: HTMLElement = new GameFighterView(fighterObj2, () => this.handleFighterClick(fighter1, fighter2, fighterView2)).element;
+        const fighterView1: HTMLElement = new GameFighterView(fighterObj1, () => this._handleFighterClick(fighter2, fighter1, fighterView1)).element;
+        const fighterView2: HTMLElement = new GameFighterView(fighterObj2, () => this._handleFighterClick(fighter1, fighter2, fighterView2)).element;
 
         (<HTMLElement>fighterView1.childNodes[1].firstChild).innerText = fighter1.health.toString();
         (<HTMLElement>fighterView2.childNodes[1].firstChild).innerText = fighter2.health.toString();
@@ -40,7 +45,7 @@ export default class GameView extends View {
         this.gameEl.append(this.element, message);
     }
 
-    handleFighterClick(attacker: IFighter, attacked: IFighter, view: HTMLElement) {
+    private _handleFighterClick(attacker: IFighter, attacked: IFighter, view: HTMLElement) {
         let damage = attacker.getHitPower() - attacked.getBlockPower();
         if (damage < 0) damage = 0;
         this._updateIndicator(attacker, attacked, damage, view);

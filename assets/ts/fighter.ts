@@ -1,9 +1,9 @@
 export interface IFighter {
-    name: string;
-    fullHealth: number;
+    readonly name: string;
+    readonly fullHealth: number;
     health: number;
-    attack: number;
-    defense: number;
+    readonly attack: number;
+    readonly defense: number;
     getHitPower: () => number;
     getBlockPower: () => number;
 }
@@ -16,19 +16,18 @@ export default class Fighter implements IFighter {
         this.attack = parseInt(obj.attack);
         this.defense = parseInt(obj.defense);
     }
-
-    name: string;
-    fullHealth: number;
+    readonly name: string;
+    readonly fullHealth: number;
     health: number;
-    attack: number;
-    defense: number;
+    readonly attack: number;
+    readonly defense: number;
 
-    getHitPower() {
+    public getHitPower() {
         const criticalHitChance = Math.random() + 1;
         return this.attack * criticalHitChance;
     }
 
-    getBlockPower() {
+    public getBlockPower() {
         const dodgeChance = Math.random() + 1;
         return this.defense * dodgeChance;
     }

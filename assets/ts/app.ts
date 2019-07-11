@@ -3,18 +3,18 @@ import ButtonView from './views/buttonView';
 import GameView from './views/gameView';
 import { fighterService } from './services/fighterService';
 
-class App {
+export default class App {
     constructor() {
-      this.startApp();
+      this._startApp();
     }
     static rootElement = document.getElementById('root');
     static loadingElement = document.getElementById('loading-overlay');
     static gameElement = document.getElementById('game');
-    async startApp() {
+    private async _startApp() {
         try {
             App.loadingElement.style.visibility = 'visible';
             App.gameElement.classList.add('hidden');
-            const fighters = await fighterService.getFighters(); 
+            const fighters: Array<{ }> = await fighterService.getFighters(); 
 
             const fightersView = new FightersView(fighters);
             const fightersElement = fightersView.element;
@@ -28,12 +28,9 @@ class App {
         } catch (error) {
             console.warn(error);
             App.rootElement.innerText = 'Failed to load data';
-        } 
-        finally {
+        } finally {
             App.loadingElement.style.visibility = 'hidden';
         }
     }
 }
-
-export default App;
   

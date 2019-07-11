@@ -140,9 +140,9 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 var App = /** @class */ (function () {
     function App() {
-        this.startApp();
+        this._startApp();
     }
-    App.prototype.startApp = function () {
+    App.prototype._startApp = function () {
         return __awaiter(this, void 0, void 0, function () {
             var fighters, fightersView, fightersElement, buttonView, buttonElement, error_1;
             return __generator(this, function (_a) {
@@ -527,7 +527,6 @@ var DetailView = /** @class */ (function (_super) {
         for (var i = 0; i < inputs.length; i++) {
             updatedFighter[inputs[i].name] = (inputs[i].value);
         }
-        console.log(updatedFighter);
         this.modal.destroy();
         _sources_fighterDataSource__WEBPACK_IMPORTED_MODULE_2__["fightersDataSource"].fightersDetailsMap.set(updatedFighter._id, updatedFighter);
         document.getElementsByClassName('fighter')[parseInt(updatedFighter._id) - 1].querySelector('span').innerText = updatedFighter.name;
@@ -556,12 +555,6 @@ var DetailView = /** @class */ (function (_super) {
         label.innerText = name + ': ';
         input.append(label, inputField);
         return input;
-    };
-    //unused?
-    DetailView.prototype._createButton = function () {
-        var editBtn = this.createElement('button', 'edit');
-        editBtn.innerText = 'Edit';
-        return editBtn;
     };
     return DetailView;
 }(_view__WEBPACK_IMPORTED_MODULE_0__["default"]));
@@ -594,7 +587,6 @@ var __extends = (undefined && undefined.__extends) || (function () {
     };
 })();
 
-// let fighterView: IFighterView = new FighterView()
 var FighterView = /** @class */ (function (_super) {
     __extends(FighterView, _super);
     function FighterView(fighter, handleClick) {
@@ -695,11 +687,11 @@ var FightersView = /** @class */ (function (_super) {
     __extends(FightersView, _super);
     function FightersView(fighters) {
         var _this = _super.call(this) || this;
-        _this.handleClick = _this.handleFighterClick.bind(_this);
-        _this.createFighters(fighters);
+        _this.handleClick = _this._handleFighterClick.bind(_this);
+        _this._createFighters(fighters);
         return _this;
     }
-    FightersView.prototype.createFighters = function (fighters) {
+    FightersView.prototype._createFighters = function (fighters) {
         var _a;
         var _this = this;
         var fighterElements = fighters.map(function (fighter) {
@@ -709,7 +701,7 @@ var FightersView = /** @class */ (function (_super) {
         this.element = this.createElement('div', 'fighters');
         (_a = this.element).append.apply(_a, fighterElements);
     };
-    FightersView.prototype.handleFighterClick = function (event, fighter) {
+    FightersView.prototype._handleFighterClick = function (event, fighter) {
         return __awaiter(this, void 0, void 0, function () {
             var detailedFighter, previousModals, i, error_1;
             return __generator(this, function (_a) {
@@ -864,11 +856,11 @@ var GameView = /** @class */ (function (_super) {
     function GameView(first, second, gameEl) {
         var _this = _super.call(this) || this;
         _this.gameEl = gameEl;
-        _this.setupView(first, second);
+        _this._setupView(first, second);
         _this.modal = _modalView__WEBPACK_IMPORTED_MODULE_2__["default"].createModal([]);
         return _this;
     }
-    GameView.prototype.setupView = function (id1, id2) {
+    GameView.prototype._setupView = function (id1, id2) {
         return __awaiter(this, void 0, void 0, function () {
             var fighterObj1, fighterObj2, fighter1, fighter2, fighterView1, fighterView2, message;
             var _this = this;
@@ -884,8 +876,8 @@ var GameView = /** @class */ (function (_super) {
                         fighterObj2 = _a.sent();
                         fighter1 = new _fighter__WEBPACK_IMPORTED_MODULE_0__["default"](fighterObj1);
                         fighter2 = new _fighter__WEBPACK_IMPORTED_MODULE_0__["default"](fighterObj2);
-                        fighterView1 = new _gameFighterView__WEBPACK_IMPORTED_MODULE_1__["default"](fighterObj1, function () { return _this.handleFighterClick(fighter2, fighter1, fighterView1); }).element;
-                        fighterView2 = new _gameFighterView__WEBPACK_IMPORTED_MODULE_1__["default"](fighterObj2, function () { return _this.handleFighterClick(fighter1, fighter2, fighterView2); }).element;
+                        fighterView1 = new _gameFighterView__WEBPACK_IMPORTED_MODULE_1__["default"](fighterObj1, function () { return _this._handleFighterClick(fighter2, fighter1, fighterView1); }).element;
+                        fighterView2 = new _gameFighterView__WEBPACK_IMPORTED_MODULE_1__["default"](fighterObj2, function () { return _this._handleFighterClick(fighter1, fighter2, fighterView2); }).element;
                         fighterView1.childNodes[1].firstChild.innerText = fighter1.health.toString();
                         fighterView2.childNodes[1].firstChild.innerText = fighter2.health.toString();
                         fighterView2.lastChild.classList.add('mirror');
@@ -899,7 +891,7 @@ var GameView = /** @class */ (function (_super) {
             });
         });
     };
-    GameView.prototype.handleFighterClick = function (attacker, attacked, view) {
+    GameView.prototype._handleFighterClick = function (attacker, attacked, view) {
         var damage = attacker.getHitPower() - attacked.getBlockPower();
         if (damage < 0)
             damage = 0;

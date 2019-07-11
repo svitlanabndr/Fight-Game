@@ -1,15 +1,15 @@
 import FighterView, { IFighterView } from './fighterView';
 
-interface IRootFighterView extends IFighterView {
+export interface IRootFighterView extends IFighterView {
     createFighter: (fighter: { [key: string]: string }, handleClick: (event: MouseEvent, fighter: { [key: string]: string }) => void) => void;
 }
 
-export default class RootFighterView extends FighterView {
+export default class RootFighterView extends FighterView implements IRootFighterView{
     constructor(fighter: { [key: string]: string }, handleClick: (event: MouseEvent, fighter: { [key: string]: string }) => void) {
         super(fighter, handleClick);
     }
 
-    createFighter(fighter: { [key: string]: string }, handleClick: (event: MouseEvent, fighter: { [key: string]: string }) => void) {
+    public createFighter(fighter: { [key: string]: string }, handleClick: (event: MouseEvent, fighter: { [key: string]: string }) => void) {
         super.createFighter(fighter, handleClick);
         this.element.append(this.imageElement, this.nameElement);
 
@@ -25,7 +25,6 @@ export default class RootFighterView extends FighterView {
         checkElement.addEventListener('click', event => event.stopPropagation());
         (<HTMLInputElement>checkElement).addEventListener('change', function() {
             const playBtn = document.querySelector('div#root button');
-
             if(this.checked) {
                 let checkedCount = 0;
                 for (let i = 0; i < checkboxes.length; i++) {

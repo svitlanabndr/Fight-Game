@@ -1,10 +1,6 @@
-import View, { IView } from './view';
+import View from './view';
 
-interface IButtonView extends IView {
-
-}
-
-export default class ButtonView extends View implements IButtonView {
+export default class ButtonView extends View {
     constructor(callback: (ids: Array<string>) => void) {
         super();
         this._createButton(callback);
@@ -20,7 +16,7 @@ export default class ButtonView extends View implements IButtonView {
 
     private _showGame(callback: (ids: Array<string>) => void) {
         const checkboxes = document.getElementsByClassName('check');
-        const checkedIds = [];
+        const checkedIds: Array<string> = [];
         for (let i = 0; i < checkboxes.length; i++) {
             if ((<HTMLInputElement> checkboxes[i]).checked) {
                 checkedIds.push(`${i + 1}`);

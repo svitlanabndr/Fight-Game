@@ -6,7 +6,7 @@ interface IFighterService {
 }
 
 class FighterService implements IFighterService {
-  async getFighters() {
+  public async getFighters(): Promise <Array<object>> {
     try {
       const endpoint = 'fighters.json';
       const apiResult = await callApi(endpoint, 'GET');
@@ -16,7 +16,7 @@ class FighterService implements IFighterService {
     }
   }
 
-  async getFighterDetails(_id: string) {
+  public async getFighterDetails(_id: string) {
       try {
         const apiResult = await callApi(`details/fighter/${_id}.json`, 'GET');
         return JSON.parse(atob(apiResult.content));
@@ -25,5 +25,5 @@ class FighterService implements IFighterService {
       }
   }
 }
-  
+
 export const fighterService = new FighterService();
